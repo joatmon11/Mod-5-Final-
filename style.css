@@ -94,6 +94,11 @@ HEADER SECTION
     transition: all 0.3s ease;
 }
 
+.link:hover {
+    color: rgb(250, 11, 11);
+    transform: scale(1.1);
+}
+
 .hero {
     width: 100%;
     max-width: 700px;
@@ -130,6 +135,16 @@ HEADER SECTION
     padding-right: 20px;
 }
 
+.fa-solid {
+    color: black;
+    font-size: 24px;
+}
+
+.fa-solid:hover {
+    color: rgb(250, 11, 11);
+    transform: scale(1.1);
+}
+
 
 /*
 
@@ -144,6 +159,7 @@ MAIN RESULTS SECTION
     flex-direction: column;
     align-items: center;
 }
+
 
 .filter__wrapper {
     padding-top: 40px;
@@ -175,7 +191,7 @@ MAIN RESULTS SECTION
 
 .range__fill {
     height: 6px;
-    background-color: #6030b1;
+    background-color: #f819095d;
     position: absolute;
     z-index: 1;
 }
@@ -193,7 +209,7 @@ input[type="range"]::-webkit-slider-thumb {
     height: 15px;
     width: 15px;
     border-radius: 50%;
-    background-color: #6030b1;
+    background-color: #f81909;
     cursor: pointer;
     margin-top: -5px;
     position: relative;
