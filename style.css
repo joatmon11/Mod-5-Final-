@@ -51,8 +51,10 @@ HEADER SECTION
     z-index: -1;
 }
 
+
 .nav__bar {
     width: 100%;
+    max-width: 1200px;
     height: 100px;
     display: flex;
     justify-content: space-between;
@@ -99,6 +101,10 @@ HEADER SECTION
     transform: scale(1.1);
 }
 
+/* 
+  HEADER/HERO SECTION
+*/
+
 .hero {
     width: 100%;
     max-width: 700px;
@@ -110,8 +116,8 @@ HEADER SECTION
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 20px;
     margin-top: 60px;
-    
 }
+
 
 .search__wrapper {
     width: 100%;
@@ -126,6 +132,12 @@ HEADER SECTION
     max-width: 600px;
     height: 60px;
     border-radius: 18px;
+    font-size: 20px;
+    text-indent: 20px;
+}
+
+.search__box:hover {
+    outline: 2px solid rgb(250, 11, 11);
 }
 
 .search__logo {
@@ -148,12 +160,12 @@ HEADER SECTION
 
 /*
 
-MAIN RESULTS SECTION
+  FILTER SECTION
 
 */
 
 #search {
-    height: 50vh;
+    height: 150px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -174,9 +186,10 @@ MAIN RESULTS SECTION
 
 .price__filter--wrapper {
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .filter__title {
@@ -227,6 +240,151 @@ input[type="range"]::-webkit-slider-runnable-track {
 .slider {
     width: 100%;
 }
+
+/* 
+
+    RESULTS SECTION
+
+*/
+
+#results {
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    background-color: rgba(175, 15, 15, 0.404);
+}
+
+.container {
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movie__wrapper {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* MOVIE CARD */
+
+.movie__card {
+    width: 200px;
+    height: 300px;
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.movie__card:hover {
+    box-shadow: 0 0 10px 10px rgb(236, 105, 105);
+}
+
+.poster__img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.poster__img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+
+.movie__card:hover .poster__img {
+    opacity: 0.5;
+}
+
+.movie__info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    cursor: default;
+    padding-bottom: 50px;
+}
+
+.movie__title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+
+.movie__card:hover .movie__info {
+    opacity: 1;
+}
+
+.movie__plot {
+    cursor: pointer;
+    position: relative;
+}
+
+.plot__para {
+    display: none;
+    margin-top: 10px;
+}
+
+.movie__plot.selected .plot__para {
+    display: block;
+}
+
+.movie__plot:hover, .movie__title:hover, .movie__year:hover, .movie__rating:hover{
+    transform: scale(1.1);
+}
+
+/* expanded-plot overlay */
+.movie__info.expanded {
+    z-index: 10002; /* ensure above poster */
+}
+
+.movie__info.expanded .movie__plot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.movie__info.expanded .movie__title,
+.movie__info.expanded .movie__year,
+.movie__info.expanded .movie__rating {
+    display: none;
+}
+
+
 
 
 /*
