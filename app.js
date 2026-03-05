@@ -13,12 +13,17 @@ const searchBox = document.querySelector('.search__box');
 const filterTitle = document.querySelector('.filter__title');
 const searchLogo = document.querySelector('.search__logo');
 
+let allMovies = []; // Store all fetched movies for filtering
 
 function updateFilterTitle() {
     if (!filterTitle || !searchBox) return;  //  if either element is missing, do nothing
     const text = searchBox.value.trim();    //  text = the string in the search box, with whitespace removed from both ends
     const base = '<b>Search results:</b>';  //  base = the default title text, which is "Search results:" in bold
-    filterTitle.innerHTML = text ? base + ' ' + text : base;  //  if there is text, add it to the base, otherwise just show the base
+    let title = text ? base + ' ' + text : base;  //  if there is text, add it to the base, otherwise just show the base
+    const minYear = parseInt(inputElements[1].value);
+    const maxYear = parseInt(inputElements[2].value);
+    title += ` (years: ${minYear}-${maxYear})`;
+    filterTitle.innerHTML = title;
 }
 
 // initialize to the base text on load
@@ -28,7 +33,7 @@ updateFilterTitle();
 if (searchLogo) {
     searchLogo.addEventListener('click', function (e) {
         e.preventDefault();
-        updateFilterTitle();
+        fetchMovies();
     });
 }
 
@@ -37,22 +42,10 @@ if (searchBox) {
     searchBox.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             e.preventDefault();
-            updateFilterTitle();
+            fetchMovies();
         }
     });
 }
-
-// allow clicking the plot text to expand it over the entire card and toggle a selected state so hidden paragraph becomes visible
-document.addEventListener('click', function (e) {
-    const target = e.target;
-    if (target.classList.contains('movie__plot')) {
-        const info = target.closest('.movie__info');
-        if (info) {
-            info.classList.toggle('expanded');
-        }
-        target.classList.toggle('selected');
-    }
-});
 
 //  SLIDER 
 
@@ -83,6 +76,11 @@ function validateRange() {
 
     rangeFill.style.left = lowPct + "%";
     rangeFill.style.width = (highPct - lowPct) + "%";
+
+    updateFilterTitle();
+    if (allMovies.length > 0) {
+        displayFilteredMovies();
+    }
 }
 
 //  update the range and display values whenever either input changes
@@ -93,7 +91,58 @@ inputElements.forEach((element) => {
 //  initialize the range display on page load
 validateRange();
 
+function displayFilteredMovies() {
+    const minYear = parseInt(inputElements[1].value);
+    const maxYear = parseInt(inputElements[2].value);
+    const filtered = allMovies.filter(movie => {
+        const year = parseInt(movie.Year);
+        return year >= minYear && year <= maxYear;
+    });
+    const movieWrapper = document.querySelector('.movie__wrapper');
+    movieWrapper.innerHTML = '';
+    filtered.forEach(movie => {
+        movieWrapper.innerHTML += displayMovies(movie);
+    });
+}
+
+//  GET MOVIES FROM JSON FILE AND DISPLAY THEM
 
 
+async function fetchMovies() {
+    try {
+         const keyword = document.getElementById('keyword').value.toLowerCase().trim();
+         if (!keyword) {
+             return alert("Please enter a search keyword.");
+             return
+         }
 
+        const movies = await fetch(`http://www.omdbapi.com/?apikey=e3a5001&s=${keyword}`);
 
+        if (!movies.ok) {
+            throw new Error("Could not find movies");
+        }
+
+        const movieData = await movies.json();
+        console.log(movieData);
+
+        allMovies = movieData.Search || [];
+        updateFilterTitle();
+        displayFilteredMovies();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function displayMovies(movieData) {
+    return `<div class="movie__card">
+            <div class="movie__poster">
+            <img class="poster__img" src="${movieData.Poster}" alt="Movie Poster">
+            </div>
+            <div class="movie__info">
+              <h3 class="movie__title">${movieData.Title}</h3>
+              <p class="movie__year">${movieData.Year}</p>
+              <a href="https://www.imdb.com/title/${movieData.imdbID}" target="_blank" class="movie__id">imdbID: ${movieData.imdbID}</a>
+              <div class="movie__type">Type: ${movieData.Type}
+              </div>`;
+}

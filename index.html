@@ -25,9 +25,9 @@
         <div class="hero">
           <h1 class="main__title">Browse our movies</h1>
           <div class="search__wrapper">
-            <input class="search__box" type="text" placeholder="Search by Catagory or Keyword"/>
-            <div class="search__logo">
-              <a href="#">
+            <input class="search__box" type="text" placeholder="Enter a keyword" id="keyword"/>
+            <div class="search__logo" onclick="fetchMovies()">
+              <a href="#" id="search-btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </a>
             </div>
@@ -39,20 +39,20 @@
       <div class="filter__wrapper">
         <div class="filter__title"><b>Search results:</b></div>
         <div class="price__filter--wrapper">
-          <h2>Year range: <b id="min-value">1980</b> to <b id="max-value">2026</b></h2>
+          <h2>Year range: <b id="min-value">1960</b> to <b id="max-value">2026</b></h2>
           <div class="slide__container">
             <div class="range__fill"></div>
             <input
               type="range"
-              min="1980"
+              min="1960"
               max="2026"
-              value="1980"
+              value="1960"
               class="min-value"
               id="myRange"
             />
             <input
               type="range"
-              min="1980"
+              min="1960"
               max="2026"
               value="2026"
               class="max-value"
@@ -65,22 +65,13 @@
     <section id="results">
       <div class="container results__container">
         <div class="movie__wrapper">
-          <div class="movie__card">
-            <div class="movie__poster">
-            <img class="poster__img" src="assets/missing.jpg" alt="Movie Poster">
-            </div>
-            <div class="movie__info">
-              <h3 class="movie__title">TITLE</h3>
-              <p class="movie__year">YEAR</p>
-              <p class="movie__rating">RATING</p>
-              <div class="movie__plot">PLOT
-                <p class="plot__para">Blah, blah, blah</p>
-              </div>
-            </div>
+          <div class="launcher">
+            <h1 class="results__title">Search to launch results!</h1>
+            <img class="launch__img" src="assets/rocket.svg" alt="">
           </div>
         </div>
       </div>
     </section>
   </body>
-  <footer>Footer section</footer>
+  <footer>Copyright © 2026 JoatJeffCreations. All rights reserved.</footer>
 </html>
