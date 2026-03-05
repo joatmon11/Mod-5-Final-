@@ -116,7 +116,7 @@ async function fetchMovies() {
              return
          }
 
-        const movies = await fetch(`http://www.omdbapi.com/?apikey=e3a5001&s=${keyword}`);
+        const movies = await fetch(`https://www.omdbapi.com/?apikey=e3a5001&s=${keyword}`);
 
         if (!movies.ok) {
             throw new Error("Could not find movies");
